@@ -85,7 +85,7 @@ trait HasImageUploads
         $this->uploadFieldOptions = $this->getUploadFieldOptions($this->uploadFieldName);
 
         // get the model attribute value
-        $attributeValue = $this->getOriginal($this->uploadFieldName);
+        $attributeValue = $this->getRawOriginal($this->uploadFieldName);
 
         // check for placeholder defined in option
         $placeholderImage = Arr::get($this->uploadFieldOptions, 'placeholder');
@@ -149,7 +149,7 @@ trait HasImageUploads
             : $this->handleImageUpload($imageFile);
 
         // hold old file
-        $currentFile = $this->getOriginal($this->uploadFieldName);
+        $currentFile = $this->getRawOriginal($this->uploadFieldName);
 
         // update the model with field name
         $this->updateModel($filePath, $this->uploadFieldName);
@@ -645,7 +645,7 @@ trait HasImageUploads
         if (config('imageup.auto_delete_images')) {
             foreach ($this->getDefinedUploadFields() as $field => $options) {
                 $field = is_numeric($field) ? $options : $field;
-                $this->deleteImage($this->getOriginal($field));
+                $this->deleteImage($this->getRawOriginal($field));
             }
         }
     }
